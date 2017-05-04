@@ -36,9 +36,12 @@ let p4 = new TracedPromise(parent, 'p4', (resolve, reject) => {
 let p5 = new TracedPromise(parent, 'p5', (resolve, reject) => {
     setTimeout(reject, 250, 'failure!');
 });
+let p6 = new TracedPromise({ childOf : parent }, 'p6', (resolve, reject) => {
+    setTimeout(resolve, 600, 'six');
+});
 
 // Wait for the child promises to resolve or reject and then handle the result.
-TracedPromise.all(parent, [p1, p2, p3, p4, p5]).then(value => {
+TracedPromise.all(parent, [p1, p2, p3, p4, p5, p6]).then(value => {
     console.log(`Resolved: ${value}`);
 }, reason => {
     console.log(`Rejected: ${reason}`);
