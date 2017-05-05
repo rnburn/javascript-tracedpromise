@@ -66,7 +66,7 @@ export default class TracedPromise {
     constructor(options, name, callback) {
         let opts = options;
         if (options instanceof opentracing.Span) {
-          opts = { childOf : options };
+            opts = { childOf : options };
         }
         let span = opentracing.globalTracer()
                               .startSpan(name, opts);

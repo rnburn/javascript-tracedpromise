@@ -36,7 +36,10 @@ let p4 = new TracedPromise(parent, 'p4', (resolve, reject) => {
 let p5 = new TracedPromise(parent, 'p5', (resolve, reject) => {
     setTimeout(reject, 250, 'failure!');
 });
-let p6 = new TracedPromise({ childOf : parent }, 'p6', (resolve, reject) => {
+let p6Options = {
+    references : [ opentracing.followsFrom(parent.context()) ],
+};
+let p6 = new TracedPromise(p6Options, 'p6', (resolve, reject) => {
     setTimeout(resolve, 600, 'six');
 });
 
